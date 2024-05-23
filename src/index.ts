@@ -10,6 +10,7 @@ import path from 'path'
 import staticRouter from './routes/static.routes'
 import { UPLOAD_VIDEO_DIR } from './constants/dir'
 import { uploadFileCodeController } from './minathon/upload.controller'
+import menusRouter from './routes/menus.routes'
 
 config()
 const app = express()
@@ -35,7 +36,8 @@ app.use(express.json())
 app.use('/users', usersRouter)
 app.use('/medias', mediasRouter)
 app.use('/static', staticRouter)
-app.use('/static/video', express.static(path.resolve(UPLOAD_VIDEO_DIR)))
+app.use('/menu', menusRouter)
+// app.use('/static/video', express.static(path.resolve(UPLOAD_VIDEO_DIR)))
 
 app.use(defaultErrorHandler)
 

@@ -12,6 +12,7 @@ import Follower from '~/models/schemas/Followers.schema'
 import axios from 'axios'
 import { ErrorWithStatus } from '~/models/Errors'
 import { HTTP_STATUS } from '~/constants/httpStatus'
+import Menu from '~/models/schemas/Menu.schema'
 config()
 
 class UsersService {
@@ -77,6 +78,8 @@ class UsersService {
         password: hashPassword(payload.password)
       })
     )
+    console.log(menu_id)
+    await databaseService.menus.insertOne(new Menu({ _id: menu_id, items: [] }))
 
     // const user_id = result.insertedId.toString()
     const [access_token, refresh_token] = await this.signAccessAndRefreshToken({

@@ -31,17 +31,21 @@ export const handleUploadImage = async (req: Request) => {
     }
   })
 
-  return new Promise<File[]>((resolve, reject) => {
+  return new Promise<{ _id: string; files: File[] }>((resolve, reject) => {
     form.parse(req, (err, fields, files) => {
       if (err) {
         return reject(err)
       }
+      //   console.log((fields.message as string[])[0])
+      //   console.log(fields)
+      //   const items = JSON.parse(fields.items as string);
+      const _id = (fields.id as string[])[0] as string
 
       // eslint-disable-next-line no-extra-boolean-cast
       if (!Boolean(files.image)) {
         return reject(new Error('File is empty'))
       }
-      resolve(files.image as File[])
+      resolve({ _id, files: files.image as File[] })
     })
   })
 }

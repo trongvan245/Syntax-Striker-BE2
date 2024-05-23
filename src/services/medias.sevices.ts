@@ -9,7 +9,7 @@ import { MediaType } from '~/constants/enum'
 import { Media } from '~/models/Other'
 class MediasService {
   async UploadImage(req: Request) {
-    const files = await handleUploadImage(req)
+    const { files } = await handleUploadImage(req)
 
     const result: Media[] = await Promise.all(
       files.map(async (file) => {
