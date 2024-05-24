@@ -151,16 +151,18 @@ usersRouter.patch(
   '/me',
   accessTokenValidator,
   updateMeValidator,
-  verifiedUserValidator,
+  //   verifiedUserValidator,
   filterMiddleware<UpdateMeReqBody>([
     'name',
-    'date_of_birth',
+    // 'date_of_birth',
     'bio',
     'location',
     'website',
     'username',
     'avatar',
-    'cover_photo'
+    'cover_photo',
+    'phone_number',
+    'owner_name'
   ]),
   WrapRequestHandler(updateMeController)
 )
