@@ -38,7 +38,8 @@ class MenusServices {
     //new menu
     const result = await databaseService.menus.findOneAndUpdate(
       { _id: menu_id },
-      { $push: { items: { $each: filteredNewItems } } }
+      { $push: { items: { $each: filteredNewItems } } },
+      { returnDocument: 'after' }
     )
 
     return result
@@ -62,7 +63,8 @@ class MenusServices {
       {
         menu_id: new ObjectId(menu_id)
       },
-      { $pull: { items: { name } } }
+      { $pull: { items: { name } } },
+      { returnDocument: 'after' }
     )
   }
 
@@ -106,6 +108,44 @@ class MenusServices {
     // )
 
     // return result
+  }
+
+  async updateMinMaxPrice(min_price: number, max_price: number, user_id: ObjectId) {
+    console.log(min_price, max_price)
+    const user = databaseService.users.findOneAndUpdate(
+      { _id: user_id },
+      {
+        $set: {
+          min_price,
+          max_price
+        }
+      },
+      { returnDocument: 'after' }
+    )
+
+    return user
+  }
+
+  async getPublicUsers() {
+    const cursor = databaseService.users.find(
+      {},
+      {
+        projection: {
+          name: 1,
+          rating: 1,
+          min_price: 1,
+          max_price: 1,
+          phone_number: 1,
+          location: 1,
+          address: 1,
+          menu_id: 1,
+          owner_name: 1
+        }
+      }
+    )
+    const user = (await cursor.toArray()) as User[]
+
+    return user
   }
 }
 

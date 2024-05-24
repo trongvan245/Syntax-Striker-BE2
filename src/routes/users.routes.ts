@@ -34,6 +34,7 @@ import {
 import { WrapRequestHandler } from '~/utils/handlers'
 import { filterMiddleware } from '~/middlewares/common.middlewares'
 import { UpdateMeReqBody } from '~/models/requests/User.requests'
+import { getPublicUsers } from '~/controllers/users2.controllers'
 const usersRouter = Router()
 
 usersRouter.use((req, res, next) => {
@@ -76,6 +77,7 @@ usersRouter.post('/register', registerValidator, WrapRequestHandler(registerCont
 
 usersRouter.post('/logout', accessTokenValidator, refreshTokenValidator, WrapRequestHandler(logoutController))
 
+usersRouter.get('/public', WrapRequestHandler(getPublicUsers))
 /**
  * Description: Verify user
  * Path: /verify-email
@@ -156,13 +158,16 @@ usersRouter.patch(
     'name',
     // 'date_of_birth',
     'bio',
-    'location',
     'website',
     'username',
     'avatar',
     'cover_photo',
+
+    'location',
     'phone_number',
-    'owner_name'
+    'owner_name',
+    'rating',
+    'address'
   ]),
   WrapRequestHandler(updateMeController)
 )
@@ -212,4 +217,5 @@ usersRouter.delete(
   unfollowValidator,
   WrapRequestHandler(unfollowController)
 )
+
 export default usersRouter

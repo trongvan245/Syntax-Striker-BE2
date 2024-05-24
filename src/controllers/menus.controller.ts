@@ -3,6 +3,7 @@ import { ParamsDictionary } from 'express-serve-static-core'
 import { ObjectId } from 'mongodb'
 import { updateMenuReqBody } from '~/models/requests/Menu.requests'
 import { TokenPayload } from '~/models/requests/User.requests'
+import Menu from '~/models/schemas/Menu.schema'
 import { menusServices } from '~/services/menus.services'
 
 export const updateMenuController = async (req: Request<ParamsDictionary, any, updateMenuReqBody>, res: Response) => {
@@ -10,10 +11,17 @@ export const updateMenuController = async (req: Request<ParamsDictionary, any, u
   const { user_id } = req.decoded_authorization as TokenPayload
 
   const menu_id = await menusServices.getMenuId(user_id)
-  const result = await menusServices.addFoodItems(menu_id, food_items)
+  const result = (await menusServices.addFoodItems(menu_id, food_items)) as Menu
+  const prices = result.items
+    ?.map((item) => item.price)
+    .filter((price) => price !== undefined && price !== null) as number[]
+
+  const max_price = prices.reduce((max, price) => (price > max ? price : max), prices[0]) || -1
+  const min_price = prices.reduce((min, price) => (price < min ? price : min), prices[0]) || -1
+  const user = await menusServices.updateMinMaxPrice(min_price, max_price, new ObjectId(user_id))
   console.log(menu_id)
   console.log(food_items)
-  return res.json({ message: ' ok', result })
+  return res.json({ message: ' ok', result, min_price: user?.min_price, max_price: user?.max_price })
 
   // const menu = menusServices.addFoodItems('', food_items)
 }

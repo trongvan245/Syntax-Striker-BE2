@@ -14,15 +14,20 @@ interface UserType {
   verify?: UserVerifyStatus
 
   bio?: string // optional
-  location?: string // optional
   website?: string // optional
   username?: string // optional
   avatar?: string // optional
   cover_photo?: string // optional
 
+  location?: string // optional
+  address?: string
+  owner_name?: string
+  phone_number?: string
+  rating?: number
+  max_price?: number
+  min_price?: number
+
   menu_id?: ObjectId
-  owner_name: string
-  phone_number: string
 }
 
 export default class User {
@@ -38,15 +43,20 @@ export default class User {
   verify: UserVerifyStatus
 
   bio: string // optional
-  location: string // optional
   website: string // optional
   username: string // optional
   avatar: string // optional
   cover_photo: string // optional
 
-  menu_id?: ObjectId
+  location: string // optional
+  address: string
   owner_name: string
   phone_number: string
+  rating: number
+  max_price: number
+  min_price: number
+
+  menu_id?: ObjectId
 
   constructor(user: UserType) {
     const date = new Date()
@@ -64,14 +74,19 @@ export default class User {
     this.verify = user.verify || UserVerifyStatus.Unverified
     // this.twitter_circle = user.twitter_circle || []
     this.bio = user.bio || ''
-    this.location = user.location || ''
     this.website = user.website || ''
     this.username = user.username || ''
     this.avatar = user.avatar || ''
     this.cover_photo = user.cover_photo || ''
 
+    this.location = user.location || ''
+    this.address = user.address || ''
+    this.min_price = user.min_price || -1
+    this.max_price = user.max_price || -1
+    this.phone_number = user.phone_number || ''
+    this.owner_name = user.owner_name || ''
+    this.rating = user.rating || 0
+
     this.menu_id = user.menu_id
-    this.phone_number = user.phone_number
-    this.owner_name = user.owner_name
   }
 }

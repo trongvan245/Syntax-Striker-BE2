@@ -6,13 +6,17 @@ export interface UpdateMeReqBody {
   name?: string
   //   date_of_birth?: string
   bio?: string
-  location?: string
   website?: string
   username?: string
   avatar?: string
   cover_photo?: string
+
+  location?: string
+  address?: string
   phone_number?: string
   owner_name?: string
+
+  rating?: number
 }
 export interface ChangePasswordReqBody {
   old_password: string
