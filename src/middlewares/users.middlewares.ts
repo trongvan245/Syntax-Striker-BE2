@@ -17,6 +17,11 @@ import { verifyToken } from '~/utils/jwt'
 import { validate } from '~/utils/validation'
 config()
 
+const phoneSchema: ParamSchema = {
+  notEmpty: { errorMessage: 'Phone is required' },
+  isString: { errorMessage: 'Phone is string' }
+}
+
 const passwordSchema: ParamSchema = {
   notEmpty: { errorMessage: USERS_MESSAGES.PASSWORD_IS_REQUIRED },
   isString: { errorMessage: USERS_MESSAGES.PASSWORD_MUST_BE_A_STRING },
@@ -242,7 +247,9 @@ export const registerValidator = validate(
       },
       password: passwordSchema,
       confirm_password: confirmPasswordSchema,
-      date_of_birth: dateOfBirthSchema
+      //   date_of_birth: dateOfBirthSchema,
+      owner_name: nameSchema,
+      phone_number: phoneSchema
     },
     ['body']
   )
@@ -433,10 +440,6 @@ export const updateMeValidator = validate(
         optional: true,
         notEmpty: undefined
       },
-      date_of_birth: {
-        ...dateOfBirthSchema,
-        optional: true
-      },
       bio: {
         optional: true,
         isString: {
@@ -500,7 +503,9 @@ export const updateMeValidator = validate(
         }
       },
       avatar: imageSchema,
-      cover_photo: imageSchema
+      cover_photo: imageSchema,
+      owner_name: nameSchema,
+      phone_number: phoneSchema
     },
     ['body']
   )

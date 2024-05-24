@@ -4,13 +4,15 @@ import { ParamsDictionary } from 'express-serve-static-core'
 
 export interface UpdateMeReqBody {
   name?: string
-  date_of_birth?: string
+  //   date_of_birth?: string
   bio?: string
   location?: string
   website?: string
   username?: string
   avatar?: string
   cover_photo?: string
+  phone_number?: string
+  owner_name?: string
 }
 export interface ChangePasswordReqBody {
   old_password: string
@@ -35,7 +37,9 @@ export interface RegisterReqBody {
   email: string
   password: string
   confirm_password: string
-  date_of_birth: string
+  //   date_of_birth: string
+  owner_name: string
+  phone_number: string
 }
 
 export interface LogoutReqBody {

@@ -74,7 +74,7 @@ class UsersService {
         menu_id,
         username: `user${user_id.toString()}`,
         email_verify_token,
-        date_of_birth: new Date(payload.date_of_birth),
+        // date_of_birth: new Date(payload.date_of_birth),
         password: hashPassword(payload.password)
       })
     )
@@ -189,9 +189,11 @@ class UsersService {
       const data = await this.register({
         email: userInfo.email,
         name: userInfo.name,
-        date_of_birth: new Date().toISOString(),
+        // date_of_birth: new Date().toISOString(),
         password,
-        confirm_password: password
+        confirm_password: password,
+        owner_name: '',
+        phone_number: ''
       })
 
       return {
@@ -300,7 +302,8 @@ class UsersService {
   }
 
   async updateMe(user_id: string, payload: UpdateMeReqBody) {
-    const _payload = payload.date_of_birth ? { ...payload, date_of_birth: new Date(payload.date_of_birth) } : payload
+    // const _payload = payload.date_of_birth ? { ...payload, date_of_birth: new Date(payload.date_of_birth) } : payload
+    // const _payload = payload
 
     const user = await databaseService.users.findOneAndUpdate(
       {
@@ -308,7 +311,8 @@ class UsersService {
       },
       {
         $set: {
-          ...(_payload as UpdateMeReqBody & { date_of_birth?: Date })
+          ...payload
+          //   ...(_payload as UpdateMeReqBody & { date_of_birth?: Date })
         },
         $currentDate: {
           updated_at: true
