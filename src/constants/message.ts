@@ -60,7 +60,7 @@ export const USERS_MESSAGES = {
 
   USERNAME_MUST_BE_A_STRING: 'Username must be a string',
   USERNAME_LENGTH: 'Username length must be from 1 to 100',
-  USERNAME_INVALID: 'Username must be 4-15 characters long and contain only letters, numbers, and underscores',
+  USERNAME_INVALID: 'Username must be 4-99 characters long and contain only letters, numbers, and underscores',
   USERNAME_EXISTED: 'Username already existed',
   OLD_PASSWORD_NOT_MATCH: 'Old password does not match',
   CHANGE_PASSWORD_SUCCESS: 'Change password success',
