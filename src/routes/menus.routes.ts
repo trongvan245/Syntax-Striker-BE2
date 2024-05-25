@@ -1,5 +1,10 @@
 import { Router } from 'express'
-import { getMenuController, updateItemImageController, updateMenuController } from '~/controllers/menus.controller'
+import {
+  getMenuController,
+  removeItemsController,
+  updateItemImageController,
+  updateMenuController
+} from '~/controllers/menus.controller'
 import { accessTokenValidator } from '~/middlewares/users.middlewares'
 import { WrapRequestHandler } from '~/utils/handlers'
 
@@ -16,4 +21,5 @@ menusRouter.post('/update-item-image', accessTokenValidator, WrapRequestHandler(
 
 menusRouter.post('/get-menu', WrapRequestHandler(getMenuController))
 
+menusRouter.post('/remove-item', accessTokenValidator, WrapRequestHandler(removeItemsController))
 export default menusRouter

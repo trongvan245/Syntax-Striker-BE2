@@ -116,7 +116,6 @@ class MenusServices {
   }
 
   async updateMinMaxPrice(min_price: number, max_price: number, user_id: ObjectId) {
-    console.log(min_price, max_price)
     const user = databaseService.users.findOneAndUpdate(
       { _id: user_id },
       {
@@ -166,6 +165,16 @@ class MenusServices {
     )
 
     return user
+  }
+
+  async removeItems(menu_id: ObjectId, list_id: ObjectId[]) {
+    const menu = await databaseService.menus.findOneAndUpdate(
+      { _id: menu_id },
+      { $pull: { items: { _id: { $in: list_id } } } },
+      { returnDocument: 'after' }
+    )
+
+    return menu
   }
 }
 

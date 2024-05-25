@@ -8,3 +8,7 @@ export interface updateMenuReqBody {
 export interface getMenuReqBody {
   menu_id: string
 }
+
+export interface removeItemsReqBody {
+  list_id: string[]
+}

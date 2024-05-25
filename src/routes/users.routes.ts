@@ -38,7 +38,7 @@ import { getPublicUsers, updateUserAvatar } from '~/controllers/users2.controlle
 const usersRouter = Router()
 
 usersRouter.use((req, res, next) => {
-  console.log('Time: ', Date.now())
+  console.log('User query Time: ', Date.now())
   next()
 })
 
