@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { ParamsDictionary } from 'express-serve-static-core'
 import { ObjectId } from 'mongodb'
-import { updateMenuReqBody } from '~/models/requests/Menu.requests'
+import { getMenuReqBody, updateMenuReqBody } from '~/models/requests/Menu.requests'
 import { TokenPayload } from '~/models/requests/User.requests'
 import Menu from '~/models/schemas/Menu.schema'
 import { menusServices } from '~/services/menus.services'
@@ -35,9 +35,10 @@ export const updateItemImageController = async (req: Request, res: Response) => 
   return res.json({ message: 'ok', url })
 }
 
-export const getMenuController = async (req: Request, res: Response) => {
-  const { user_id } = req.decoded_authorization as TokenPayload
-  const menu = await menusServices.getMenuByUserId(user_id)
+export const getMenuController = async (req: Request<ParamsDictionary, any, getMenuReqBody>, res: Response) => {
+  const { menu_id } = req.body
+  //   const menu = await menusServices.getmenu(user_id)
+  const menu = await menusServices.getMenu(menu_id)
 
   return res.json({ items: menu?.items })
 }

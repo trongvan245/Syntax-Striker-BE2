@@ -20,6 +20,10 @@ class MenusServices {
     )) as User
     return menu_id as ObjectId
   }
+  async getMenu(menu_id: string) {
+    const menu = (await databaseService.menus.findOne({ _id: new ObjectId(menu_id) })) as Menu
+    return menu
+  }
   async getMenuByUserId(user_id: string) {
     const menu_id = await this.getMenuId(user_id)
 

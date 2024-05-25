@@ -14,6 +14,6 @@ menusRouter.post('/update-menu', accessTokenValidator, WrapRequestHandler(update
 
 menusRouter.post('/update-item-image', accessTokenValidator, WrapRequestHandler(updateItemImageController))
 
-menusRouter.get('/get-menu', accessTokenValidator, WrapRequestHandler(getMenuController))
+menusRouter.get('/get-menu', WrapRequestHandler(getMenuController))
 
 export default menusRouter
