@@ -7,6 +7,7 @@ export interface FootItemType {
   rating?: number
   menu_id?: ObjectId
   avatar?: string
+  description?: string
 }
 interface MenuType {
   _id?: ObjectId
