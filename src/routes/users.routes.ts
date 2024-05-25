@@ -34,7 +34,7 @@ import {
 import { WrapRequestHandler } from '~/utils/handlers'
 import { filterMiddleware } from '~/middlewares/common.middlewares'
 import { UpdateMeReqBody } from '~/models/requests/User.requests'
-import { getPublicUsers } from '~/controllers/users2.controllers'
+import { getPublicUsers, updateUserAvatar } from '~/controllers/users2.controllers'
 const usersRouter = Router()
 
 usersRouter.use((req, res, next) => {
@@ -149,7 +149,7 @@ usersRouter.get('/:username', WrapRequestHandler(getProfileController))
  * Header: {Authorization: Bear<access_token>}
  */
 
-usersRouter.patch(
+usersRouter.post(
   '/me',
   accessTokenValidator,
   updateMeValidator,
@@ -171,6 +171,8 @@ usersRouter.patch(
   ]),
   WrapRequestHandler(updateMeController)
 )
+
+usersRouter.post('/avatar', accessTokenValidator, WrapRequestHandler(updateUserAvatar))
 /**
  * Description: Change password
  * Path: /change-password

@@ -39,7 +39,8 @@ export const handleUploadImage = async (req: Request) => {
       //   console.log((fields.message as string[])[0])
       //   console.log(fields)
       //   const items = JSON.parse(fields.items as string);
-      const _id = (fields.id as string[])[0] as string
+      //   const _id = (fields.id as string[])[0] as string
+      const _id = (fields.id?.[0] ?? '') as string
 
       // eslint-disable-next-line no-extra-boolean-cast
       if (!Boolean(files.image)) {

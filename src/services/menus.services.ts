@@ -70,6 +70,7 @@ class MenusServices {
 
   async UploadItemImage(req: Request) {
     const { _id, files } = await handleUploadImage(req)
+    console.log(_id)
 
     const file = files[0]
 
@@ -144,6 +145,20 @@ class MenusServices {
       }
     )
     const user = (await cursor.toArray()) as User[]
+
+    return user
+  }
+
+  async updateUserAvatar(user_id: ObjectId, url: string) {
+    const user = await databaseService.users.findOneAndUpdate(
+      { _id: user_id },
+      {
+        $set: {
+          avatar: url
+        }
+      },
+      { returnDocument: 'after' }
+    )
 
     return user
   }
