@@ -140,7 +140,8 @@ class MenusServices {
           location: 1,
           address: 1,
           menu_id: 1,
-          owner_name: 1
+          owner_name: 1,
+          avatar: 1
         }
       }
     )
