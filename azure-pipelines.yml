@@ -6,6 +6,8 @@
 trigger:
 - main
 
+pool:
+ name: myVMpool
 
 steps:
 - task: NodeTool@0
